@@ -2,9 +2,9 @@ import ContactForm from "@/components/ContactForm";
 
 // ─── CONTACT CONFIG ───────────────────────────────────────────────────────────
 const PHONE = "(201) 887-6014";
-const EMAIL = "dispatch@twcexpressllc.com"; // TODO: replace with real email
-const ADDRESS_LINE1 = "City, State ZIP";    // TODO: replace with street address
-const ADDRESS_LINE2 = "";                   // TODO: add second address line if needed
+const EMAIL = "info@twcxpress.com"; // TODO: replace with real email
+const ADDRESS_LINE1 = "Paterson, NJ";
+const ADDRESS_LINE2 = "Harrisburg, PA";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const contactDetails = [

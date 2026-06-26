@@ -3,8 +3,9 @@ import Image from "next/image";
 
 // ─── CONTACT & LEGAL CONFIG ──────────────────────────────────────────────────
 const PHONE = "(201) 887-6014";
-const EMAIL = "dispatch@twcexpressllc.com"; // TODO: replace with real email
-const ADDRESS = "City, State ZIP";        // TODO: replace with real address
+const EMAIL = "info@twcxpress.com"; // TODO: replace with real email
+const ADDRESS_LINE1 = "Paterson, NJ";
+const ADDRESS_LINE2 = "Harrisburg, PA";
 const DOT_NUMBER = "3215718";
 const MC_NUMBER = "1005282";
 // ─────────────────────────────────────────────────────────────────────────────
@@ -96,7 +97,7 @@ export default function Footer() {
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>{ADDRESS}</span>
+                <span>{ADDRESS_LINE1}<br />{ADDRESS_LINE2}</span>
               </li>
             </ul>
           </div>
