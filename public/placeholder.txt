@@ -1,0 +1,2 @@
+Place your logo image (e.g. logo.png) in this /public folder.
+Then update src/components/Navbar.tsx and src/components/Footer.tsx to use it with Next.js <Image />.
