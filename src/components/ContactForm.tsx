@@ -34,17 +34,17 @@ export default function ContactForm() {
     */
     try {
       // Fake network delay — remove once you wire up a real endpoint
-      await new Promise((res) => setTimeout(res, 1200));
+      
 
       // Example real fetch (uncomment and fill in your endpoint):
-      // const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-      //   method: "POST",
-      //   body: data,
-      //   headers: { Accept: "application/json" },
-      // });
-      // if (!res.ok) throw new Error("Submission failed");
+      const res = await fetch("https://formspree.io/f/xgojnrqr", {
+         method: "POST",
+         body: data,
+         headers: { Accept: "application/json" },
+       });
+       if (!res.ok) throw new Error("Submission failed");
 
-      void data; // remove this line when using real fetch
+      
       setState("success");
       form.reset();
     } catch {
