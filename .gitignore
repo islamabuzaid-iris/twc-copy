@@ -28,3 +28,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code (machine-local agent config)
+.claude/settings.local.json
+.impeccable/config.local.json
