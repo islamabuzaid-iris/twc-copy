@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { SpotlightCard } from "@/components/motion/SpotlightCard";
 
 const values = [
   {
@@ -49,21 +52,32 @@ export default function AboutPage() {
   return (
     <>
       {/* ── PAGE HERO ─────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-black py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-brand-black py-20 overflow-hidden">
+        <div className="grain-overlay" aria-hidden="true" />
+        <div
+          className="absolute -top-40 -right-20 w-[32rem] h-[32rem] rounded-full bg-brand-orange/10 blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
+        <RevealGroup className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" mode="mount">
           <div className="max-w-2xl">
-            <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
-              Our Story
-            </p>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
-              About TWC Express LLC
-            </h1>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              We are a small but driven trucking company with big standards — built on a foundation
-              of reliability, professionalism, and a genuine passion for keeping freight moving.
-            </p>
+            <RevealItem>
+              <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
+                Our Story
+              </p>
+            </RevealItem>
+            <RevealItem>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight text-balance">
+                About TWC Express LLC
+              </h1>
+            </RevealItem>
+            <RevealItem>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                We are a small but driven trucking company with big standards — built on a foundation
+                of reliability, professionalism, and a genuine passion for keeping freight moving.
+              </p>
+            </RevealItem>
           </div>
-        </div>
+        </RevealGroup>
       </section>
 
       <div className="h-1 bg-brand-orange" />
@@ -72,11 +86,11 @@ export default function AboutPage() {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <Reveal x={-24} y={0}>
               <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
                 Who We Are
               </p>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-brand-black mb-5 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-5 leading-tight tracking-tight">
                 A Carrier Built on Integrity
               </h2>
               <span className="inline-block border border-brand-orange text-brand-orange text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-sm mb-5">
@@ -98,10 +112,10 @@ export default function AboutPage() {
                 standards, and provide transparent pricing with no surprise fees. When you partner
                 with TWC Express, you get a team that shows up — every time.
               </p>
-            </div>
+            </Reveal>
 
             {/* Highlight sidebar */}
-            <div className="space-y-5">
+            <RevealGroup className="space-y-5">
               {[
                 {
                   heading: "Licensed & Compliant",
@@ -120,9 +134,9 @@ export default function AboutPage() {
                   body: "As an owner-operated business, we have a personal stake in every load. There is no bureaucracy between you and the people making decisions.",
                 },
               ].map((item) => (
-                <div
+                <RevealItem
                   key={item.heading}
-                  className="flex gap-4 bg-gray-50 border border-gray-100 rounded-sm p-5"
+                  className="flex gap-4 bg-gray-50 rounded-sm p-5 shadow-card"
                 >
                   <div className="mt-1 w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center shrink-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,9 +147,9 @@ export default function AboutPage() {
                     <h3 className="font-bold text-brand-black text-sm mb-1">{item.heading}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed">{item.body}</p>
                   </div>
-                </div>
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </div>
       </section>
@@ -150,31 +164,33 @@ export default function AboutPage() {
           <p className="section-sub mb-12">
             These are the principles behind every load we move and every relationship we build.
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((v) => (
-              <div
-                key={v.title}
-                className="bg-white border border-gray-100 rounded-sm p-8 text-left shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200"
-              >
-                <div className="text-brand-orange mb-4">{v.icon}</div>
-                <h3 className="font-bold text-brand-black text-lg mb-2">{v.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.body}</p>
-              </div>
+              <RevealItem key={v.title}>
+                <SpotlightCard className="group bg-white rounded-sm p-8 text-left shadow-card hover:shadow-card-hover transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 rounded-sm bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-5 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    {v.icon}
+                  </div>
+                  <h3 className="font-bold text-brand-black text-lg mb-2">{v.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{v.body}</p>
+                </SpotlightCard>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
       {/* ── WHY TRUST US — COMPLIANCE STRIP ──────────────────────────────────── */}
-      <section className="bg-brand-black py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-8 text-center">
+      <section className="relative bg-brand-black py-16 overflow-hidden">
+        <div className="grain-overlay" aria-hidden="true" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <RevealGroup className="grid sm:grid-cols-3 gap-8 text-center">
             {[
               { label: "Active USDOT Authority", sub: "Federally registered motor carrier" },
               { label: "Active MC Authority", sub: "MC #1005282 in good standing" },
               { label: "Commercial Cargo Insurance", sub: "Every load, every shipment" },
             ].map((item) => (
-              <div key={item.label} className="border border-neutral-700 rounded-sm p-8">
+              <RevealItem key={item.label} className="bg-white/5 ring-1 ring-white/10 rounded-sm p-8 hover:ring-brand-orange/40 transition-colors duration-300">
                 <div className="w-10 h-10 rounded-full bg-brand-orange mx-auto mb-4 flex items-center justify-center">
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -182,16 +198,16 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-white font-bold mb-1">{item.label}</h3>
                 <p className="text-gray-400 text-sm">{item.sub}</p>
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────────────────────── */}
       <section className="bg-white py-20 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-extrabold text-brand-black mb-4">
+        <Reveal className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-brand-black mb-4 text-balance">
             Ready to Work With Us?
           </h2>
           <p className="text-gray-500 text-lg mb-8">
@@ -201,11 +217,11 @@ export default function AboutPage() {
             <Link href="/contact" className="btn-primary">
               Contact Us
             </Link>
-            <Link href="/services" className="inline-block border-2 border-brand-black text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-brand-black hover:text-white transition-colors duration-200 tracking-wide uppercase text-sm">
+            <Link href="/services" className="inline-flex items-center justify-center border-2 border-brand-black text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-brand-black hover:text-white active:scale-[0.98] transition-all duration-200 tracking-wide uppercase text-sm">
               View Services
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );
