@@ -8,22 +8,93 @@
   }
   body {
     @apply text-gray-900 bg-white;
+    font-variant-numeric: tabular-nums;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    background-color: #f5a62333;
+    color: #111111;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-block bg-brand-orange text-white font-bold px-8 py-3 rounded-sm
-           hover:bg-amber-500 transition-colors duration-200 tracking-wide uppercase text-sm;
+    @apply inline-flex items-center justify-center bg-brand-orange text-white font-bold px-8 py-3 rounded-sm
+           shadow-glow hover:bg-brand-orangeDark hover:shadow-none active:scale-[0.98]
+           transition-all duration-200 tracking-wide uppercase text-sm;
   }
   .btn-outline {
-    @apply inline-block border-2 border-white text-white font-bold px-8 py-3 rounded-sm
-           hover:bg-white hover:text-brand-black transition-colors duration-200 tracking-wide uppercase text-sm;
+    @apply inline-flex items-center justify-center border-2 border-white text-white font-bold px-8 py-3 rounded-sm
+           hover:bg-white hover:text-brand-black active:scale-[0.98]
+           transition-all duration-200 tracking-wide uppercase text-sm;
   }
   .section-heading {
-    @apply text-3xl md:text-4xl font-extrabold text-brand-black mb-4 tracking-tight;
+    @apply text-3xl md:text-4xl font-bold text-brand-black mb-4 tracking-tight;
+    text-wrap: balance;
   }
   .section-sub {
     @apply text-gray-500 text-lg max-w-2xl mx-auto;
+  }
+  .grain-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Visible focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #f5a623;
+  outline-offset: 2px;
+}
+
+/* Cursor-tracked spotlight border for interactive cards */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(245, 166, 35, 0.55),
+    transparent 65%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-menu-in {
+  animation: menu-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-menu-in {
+    animation: none;
   }
 }

@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { SpotlightCard } from "@/components/motion/SpotlightCard";
 
 const carrierFeatures = [
   "Expedited & standard delivery options",
@@ -56,21 +59,32 @@ export default function ServicesPage() {
   return (
     <>
       {/* ── PAGE HERO ─────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-black py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-brand-black py-20 overflow-hidden">
+        <div className="grain-overlay" aria-hidden="true" />
+        <div
+          className="absolute -top-40 -right-20 w-[32rem] h-[32rem] rounded-full bg-brand-orange/10 blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
+        <RevealGroup className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" mode="mount">
           <div className="max-w-2xl">
-            <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
-              What We Do
-            </p>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
-              Freight &amp; Logistics Services
-            </h1>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              TWC Express LLC is a licensed carrier serving both shippers and brokers with
-              dependable LTL and FTL freight — professional service from pickup to delivery.
-            </p>
+            <RevealItem>
+              <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
+                What We Do
+              </p>
+            </RevealItem>
+            <RevealItem>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight text-balance">
+                Freight &amp; Logistics Services
+              </h1>
+            </RevealItem>
+            <RevealItem>
+              <p className="text-gray-400 text-lg leading-relaxed">
+                TWC Express LLC is a licensed carrier serving both shippers and brokers with
+                dependable LTL and FTL freight — professional service from pickup to delivery.
+              </p>
+            </RevealItem>
           </div>
-        </div>
+        </RevealGroup>
       </section>
 
       {/* ── ORANGE RULE ───────────────────────────────────────────────────────── */}
@@ -81,11 +95,11 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Text */}
-            <div>
+            <Reveal x={-24} y={0}>
               <span className="inline-block bg-brand-orange text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-4 rounded-sm">
                 Service 01
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-brand-black mb-4 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-4 leading-tight tracking-tight">
                 Direct Carrier &amp; Owner-Operator
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -114,10 +128,10 @@ export default function ServicesPage() {
               <Link href="/contact" className="btn-primary">
                 Book a Carrier Run
               </Link>
-            </div>
+            </Reveal>
 
             {/* Visual card */}
-            <div className="bg-gray-50 border border-gray-100 rounded-sm p-10 flex flex-col items-center text-center shadow-sm">
+            <Reveal x={24} y={0} delay={0.1} className="bg-gray-50 rounded-sm p-10 flex flex-col items-center text-center shadow-card">
               <div className="text-brand-orange mb-6">
                 <svg className="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -129,20 +143,46 @@ export default function ServicesPage() {
                 Point-to-point delivery with no hand-offs. Your freight stays on one truck,
                 driven by our professional team, from pickup to drop-off.
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-6 w-full">
+              <RevealGroup className="mt-8 grid grid-cols-2 gap-4 w-full">
                 {[
-                  { label: "LTL & FTL", icon: "🚚" },
-                  { label: "Same-Day Available", icon: "⚡" },
-                  { label: "Cargo Insurance", icon: "🛡️" },
-                  { label: "48-State Coverage", icon: "🗺️" },
+                  {
+                    label: "LTL & FTL",
+                    icon: (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    ),
+                  },
+                  {
+                    label: "Same-Day Available",
+                    icon: (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    ),
+                  },
+                  {
+                    label: "Cargo Insurance",
+                    icon: (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    ),
+                  },
+                  {
+                    label: "48-State Coverage",
+                    icon: (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    ),
+                  },
                 ].map((item) => (
-                  <div key={item.label} className="bg-white border border-gray-100 rounded-sm p-4 text-center shadow-sm">
-                    <p className="text-2xl mb-1">{item.icon}</p>
+                  <RevealItem key={item.label} className="bg-white rounded-sm p-4 text-center shadow-card">
+                    <svg className="w-6 h-6 mx-auto mb-2 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {item.icon}
+                    </svg>
                     <p className="text-xs font-semibold text-gray-600">{item.label}</p>
-                  </div>
+                  </RevealItem>
                 ))}
-              </div>
-            </div>
+              </RevealGroup>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -155,7 +195,8 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Visual card */}
-            <div className="bg-brand-black border border-neutral-700 rounded-sm p-10 flex flex-col items-center text-center shadow-sm order-2 md:order-1">
+            <Reveal x={-24} y={0} className="relative bg-brand-black rounded-sm p-10 flex flex-col items-center text-center shadow-card ring-1 ring-white/10 order-2 md:order-1 overflow-hidden">
+              <div className="grain-overlay" aria-hidden="true" />
               <div className="text-brand-orange mb-6">
                 <svg className="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -167,27 +208,27 @@ export default function ServicesPage() {
                 We're available on load boards and work directly with shippers — LTL or FTL,
                 we have the capacity and reliability to get it done.
               </p>
-              <div className="mt-8 grid grid-cols-2 gap-4 w-full">
+              <RevealGroup className="mt-8 grid grid-cols-2 gap-4 w-full">
                 {[
                   { label: "Load Types", value: "LTL & FTL" },
                   { label: "Lane Coverage", value: "Nationwide" },
                   { label: "Pricing", value: "Transparent" },
                   { label: "Communication", value: "24/7" },
                 ].map((item) => (
-                  <div key={item.label} className="bg-neutral-800 border border-neutral-700 rounded-sm p-4">
+                  <RevealItem key={item.label} className="bg-white/5 ring-1 ring-white/10 rounded-sm p-4">
                     <p className="text-brand-orange font-bold text-sm">{item.value}</p>
                     <p className="text-gray-400 text-xs mt-0.5">{item.label}</p>
-                  </div>
+                  </RevealItem>
                 ))}
-              </div>
-            </div>
+              </RevealGroup>
+            </Reveal>
 
             {/* Text */}
-            <div className="order-1 md:order-2">
+            <Reveal x={24} y={0} delay={0.1} className="order-1 md:order-2">
               <span className="inline-block bg-brand-orange text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-4 rounded-sm">
                 Service 02
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-brand-black mb-4 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-4 leading-tight tracking-tight">
                 Carrier Services for Shippers &amp; Brokers
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -216,7 +257,7 @@ export default function ServicesPage() {
               <Link href="/contact" className="btn-primary">
                 Get a Rate
               </Link>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -232,25 +273,30 @@ export default function ServicesPage() {
             From last-mile to long-haul, TWC Express has the flexibility to handle a wide range
             of freight scenarios — all as your direct carrier.
           </p>
-          <div className="grid sm:grid-cols-3 gap-8">
-            {additionalServices.map((s) => (
-              <div
-                key={s.title}
-                className="bg-white border border-gray-100 rounded-sm p-8 text-left shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200"
-              >
-                <div className="text-brand-orange mb-4">{s.icon}</div>
-                <h3 className="font-bold text-brand-black text-lg mb-2">{s.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{s.body}</p>
-              </div>
+          <RevealGroup className="grid sm:grid-cols-3 gap-8">
+            {additionalServices.map((s, i) => (
+              <RevealItem key={s.title} className={i === 1 ? "sm:mt-6" : ""}>
+                <SpotlightCard className="group bg-white rounded-sm p-8 text-left shadow-card hover:shadow-card-hover transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 rounded-sm bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-5 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    {s.icon}
+                  </div>
+                  <h3 className="font-bold text-brand-black text-lg mb-2">{s.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{s.body}</p>
+                </SpotlightCard>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-orange py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-4">
+      <section className="relative bg-brand-orange py-16 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"
+          aria-hidden="true"
+        />
+        <Reveal className="relative max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4 text-balance">
             Ready to Move Your Freight?
           </h2>
           <p className="text-amber-900 font-medium mb-8">
@@ -258,11 +304,11 @@ export default function ServicesPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-white text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-gray-100 transition-colors tracking-wide uppercase text-sm"
+            className="inline-block bg-white text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-gray-100 active:scale-[0.98] transition-all duration-200 tracking-wide uppercase text-sm"
           >
             Get a Quote
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );

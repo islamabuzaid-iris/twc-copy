@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -53,12 +54,12 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full border border-gray-200 rounded-sm px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent transition";
+    "w-full bg-white border border-gray-200 rounded-sm px-4 py-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all duration-150";
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gray-50 border border-gray-100 rounded-sm p-8 space-y-5 shadow-sm"
+      className="bg-gray-50 rounded-sm p-8 space-y-5 shadow-card"
       noValidate
     >
       {/* Name */}
@@ -110,7 +111,7 @@ export default function ContactForm() {
         <label className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-1.5" htmlFor="service">
           Service Needed
         </label>
-        <select id="service" name="service" className={inputClass + " bg-white"}>
+        <select id="service" name="service" className={inputClass}>
           <option value="">Select a service...</option>
           <option value="ltl">LTL Shipment</option>
           <option value="ftl">FTL Shipment</option>
@@ -136,37 +137,58 @@ export default function ContactForm() {
       </div>
 
       {/* Submit */}
-      <button
+      <motion.button
         type="submit"
         disabled={state === "submitting"}
-        className="w-full btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
+        whileHover={state === "submitting" ? undefined : { scale: 1.01 }}
+        whileTap={state === "submitting" ? undefined : { scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        className="w-full btn-primary disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
       >
+        {state === "submitting" && (
+          <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+          </svg>
+        )}
         {state === "submitting" ? "Sending..." : "Send Message"}
-      </button>
+      </motion.button>
 
-      {/* Success message */}
-      {state === "success" && (
-        <div className="flex items-start gap-3 bg-green-50 border border-green-200 text-green-800 rounded-sm p-4 text-sm">
-          <svg className="w-5 h-5 shrink-0 mt-0.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p>
-            <strong>Message sent!</strong> We&apos;ll be in touch shortly. For urgent loads, please call us directly.
-          </p>
-        </div>
-      )}
+      <AnimatePresence>
+        {state === "success" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-start gap-3 bg-green-50 border border-green-200 text-green-800 rounded-sm p-4 text-sm overflow-hidden"
+          >
+            <svg className="w-5 h-5 shrink-0 mt-0.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p>
+              <strong>Message sent.</strong> We&apos;ll be in touch shortly. For urgent loads, please call us directly.
+            </p>
+          </motion.div>
+        )}
 
-      {/* Error message */}
-      {state === "error" && (
-        <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 rounded-sm p-4 text-sm">
-          <svg className="w-5 h-5 shrink-0 mt-0.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p>
-            Something went wrong. Please try again or call us directly.
-          </p>
-        </div>
-      )}
+        {state === "error" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 rounded-sm p-4 text-sm overflow-hidden"
+          >
+            <svg className="w-5 h-5 shrink-0 mt-0.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p>
+              Message not sent — please try again or call us directly.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </form>
   );
 }

@@ -1,5 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
+import { SpotlightCard } from "@/components/motion/SpotlightCard";
+import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
+import { ParallaxImage } from "@/components/motion/ParallaxImage";
 
 // ─── WHY CHOOSE US CARDS ─────────────────────────────────────────────────────
 const reasons = [
@@ -59,63 +64,72 @@ export default function HomePage() {
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className="relative bg-brand-black overflow-hidden">
         {/* Hero background photo */}
-        <Image
-          src="/twc trucks.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-        />
-        {/* Dark overlay so text stays readable */}
+        <ParallaxImage src="/twc trucks.png" alt="TWC Express trucks staged for freight pickup" />
+        {/* Layered gradient so text stays readable while keeping depth */}
         <div
-          className="absolute inset-0 bg-brand-black opacity-70"
+          className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/85 to-brand-black/40"
           aria-hidden="true"
         />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"
+          aria-hidden="true"
+        />
+        <div className="grain-overlay" aria-hidden="true" />
         {/* Decorative orange accent bar */}
         <div className="absolute left-0 top-0 h-full w-1 bg-brand-orange" aria-hidden="true" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-40">
-          <div className="max-w-3xl">
-            <div className="flex flex-wrap gap-2 mb-6">
+          <RevealGroup className="max-w-3xl" mode="mount">
+            <RevealItem className="flex flex-wrap gap-2 mb-6">
               <span className="inline-block bg-brand-orange text-white text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-sm">
                 Licensed Freight Carrier
               </span>
-              <span className="inline-block border border-brand-orange text-brand-orange text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-sm">
+              <span className="inline-block border border-brand-orange/60 bg-white/5 backdrop-blur-sm text-brand-orange text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-sm">
                 Minority-Owned Business
               </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Reliable Freight,{" "}
-              <span className="text-brand-orange">Delivered On Time.</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl">
-              TWC Express LLC is a licensed carrier serving shippers and brokers with dependable
-              LTL and FTL freight across the country. We move your cargo safely — every load, every time.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            </RevealItem>
+            <RevealItem>
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.05] tracking-tightest mb-6 text-balance">
+                Reliable Freight,{" "}
+                <span className="text-brand-orange">Delivered On Time.</span>
+              </h1>
+            </RevealItem>
+            <RevealItem>
+              <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl">
+                TWC Express LLC is a licensed carrier serving shippers and brokers with dependable
+                LTL and FTL freight across the country. We move your cargo safely — every load, every time.
+              </p>
+            </RevealItem>
+            <RevealItem className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="btn-primary text-center">
                 Request a Quote
               </Link>
               <Link href="/services" className="btn-outline text-center">
                 Our Services
               </Link>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
         </div>
       </section>
 
       {/* ── STATS BAR ─────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-orange">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <section className="relative bg-brand-orange overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"
+          aria-hidden="true"
+        />
+        <RevealGroup className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <p className="text-2xl md:text-3xl font-extrabold text-white">{s.value}</p>
+            {stats.map((s, i) => (
+              <RevealItem key={s.label} className={i > 0 ? "md:border-l md:border-white/20 md:pl-6" : ""}>
+                <p className="text-2xl md:text-3xl font-display font-bold text-white">
+                  <AnimatedNumber value={s.value} />
+                </p>
                 <p className="text-xs font-semibold uppercase tracking-widest text-amber-900 mt-1">{s.label}</p>
-              </div>
+              </RevealItem>
             ))}
           </div>
-        </div>
+        </RevealGroup>
       </section>
 
       {/* ── TRUSTED BY ────────────────────────────────────────────────────────── */}
@@ -124,7 +138,7 @@ export default function HomePage() {
           <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-10">
             Companies We&apos;ve Worked With
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+          <RevealGroup className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
             {[
               { src: "/axle-logo.png",                   alt: "Axle" },
               { src: "/enruio_logo.jpeg",                alt: "Enruio",   large: true },
@@ -132,16 +146,19 @@ export default function HomePage() {
               { src: "/king_of_freight_logo.jpeg",       alt: "King of Freight" },
               { src: "/Screenshot_24-6-2026_161137_drttransportation.com.jpeg", alt: "DRT Transportation" },
             ].map((logo) => (
-              <div key={logo.alt} className={`relative shrink-0 ${"large" in logo && logo.large ? "h-20 w-52" : "h-12 w-36"}`}>
+              <RevealItem
+                key={logo.alt}
+                className={`relative shrink-0 ${"large" in logo && logo.large ? "h-20 w-52" : "h-12 w-36"}`}
+              >
                 <Image
                   src={logo.src}
                   alt={logo.alt}
                   fill
-                  className="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                  className="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-300"
                 />
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
@@ -149,7 +166,7 @@ export default function HomePage() {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <Reveal x={-24} y={0}>
               <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
                 Who We Are
               </p>
@@ -168,10 +185,10 @@ export default function HomePage() {
               <Link href="/about" className="btn-primary">
                 Learn More About Us
               </Link>
-            </div>
+            </Reveal>
 
             {/* Decorative feature list */}
-            <div className="bg-gray-50 border border-gray-100 rounded-sm p-8 space-y-5">
+            <RevealGroup className="bg-gray-50 rounded-sm p-8 space-y-5 shadow-card">
               {[
                 "Minority-Owned Business",
                 "Licensed USDOT Motor Carrier",
@@ -180,16 +197,16 @@ export default function HomePage() {
                 "Dedicated Account Management",
                 "Flexible Pickup & Delivery Windows",
               ].map((item) => (
-                <div key={item} className="flex items-start gap-3">
+                <RevealItem key={item} className="flex items-start gap-3">
                   <span className="mt-1 w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center shrink-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
                   <span className="text-gray-700 font-medium">{item}</span>
-                </div>
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </div>
       </section>
@@ -206,25 +223,31 @@ export default function HomePage() {
             and reliability of a large operation — serving shippers and brokers on every load.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {reasons.map((r) => (
-              <div
-                key={r.title}
-                className="bg-white rounded-sm border border-gray-100 p-8 text-left shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200"
-              >
-                <div className="text-brand-orange mb-4">{r.icon}</div>
-                <h3 className="text-lg font-bold text-brand-black mb-2">{r.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{r.body}</p>
-              </div>
+              <RevealItem key={r.title}>
+                <SpotlightCard className="group bg-white rounded-sm p-8 text-left shadow-card hover:shadow-card-hover transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 rounded-sm bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-5 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    {r.icon}
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-brand-black mb-2">{r.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{r.body}</p>
+                </SpotlightCard>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
       {/* ── CTA BANNER ────────────────────────────────────────────────────────── */}
-      <section className="bg-brand-black py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+      <section className="relative bg-brand-black py-20 overflow-hidden">
+        <div
+          className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-orange/10 blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
+        <div className="grain-overlay" aria-hidden="true" />
+        <Reveal className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 text-balance">
             Ready to Move Your Freight?
           </h2>
           <p className="text-gray-400 text-lg mb-10">
@@ -233,7 +256,7 @@ export default function HomePage() {
           <Link href="/contact" className="btn-primary">
             Get a Free Quote
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );
