@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
+import { ScrollImagePanel } from "@/components/motion/ScrollImagePanel";
 
 const carrierFeatures = [
   "Expedited & standard delivery options",
@@ -258,6 +259,41 @@ export default function ServicesPage() {
                 Get a Rate
               </Link>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── EQUIPPED FOR EVERY LOAD ──────────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-12">
+            <p className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-3">
+              Equipped For Every Load
+            </p>
+            <h2 className="section-heading">The Right Equipment, Every Time</h2>
+            <p className="section-sub mx-auto">
+              From liftgate deliveries to hands-on warehouse loading, our trucks and crews
+              come ready for whatever the job requires.
+            </p>
+          </Reveal>
+          <div className="space-y-6">
+            <ScrollImagePanel
+              src="/liftgate services.jpg"
+              alt="TWC Express box truck with hydraulic liftgate deployed for ground-level delivery"
+              eyebrow="Equipment"
+              title="Liftgate-Equipped Trucks"
+              body="Every truck comes ready with a hydraulic liftgate for loads that need ground-level pickup or delivery — no loading dock required."
+              align="left"
+              imageClassName="contrast-110 saturate-[1.15] brightness-95"
+            />
+            <ScrollImagePanel
+              src="/loading.jpg"
+              alt="Warehouse crew loading palletized freight with a pallet jack"
+              eyebrow="Handling"
+              title="Careful, Professional Loading"
+              body="From pallet jacks to hand-stacking, freight is loaded and secured the right way, every time — protecting your cargo from pickup to delivery."
+              align="right"
+            />
           </div>
         </div>
       </section>
