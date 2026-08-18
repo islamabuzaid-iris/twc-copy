@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
+import { MagneticLink } from "@/components/motion/MagneticLink";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 
@@ -214,12 +215,12 @@ export default function AboutPage() {
             Get in touch for a fast quote or to learn more about how TWC Express can serve your freight needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn-primary">
+            <MagneticLink href="/contact" className="btn-primary">
               Contact Us
-            </Link>
-            <Link href="/services" className="inline-flex items-center justify-center border-2 border-brand-black text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-brand-black hover:text-white active:scale-[0.98] transition-all duration-200 tracking-wide uppercase text-sm">
+            </MagneticLink>
+            <MagneticLink href="/services" className="inline-flex items-center justify-center border-2 border-brand-black text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-brand-black hover:text-white active:scale-[0.98] transition-all duration-200 tracking-wide uppercase text-sm">
               View Services
-            </Link>
+            </MagneticLink>
           </div>
         </Reveal>
       </section>

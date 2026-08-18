@@ -3,6 +3,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 import { ScrollImagePanel } from "@/components/motion/ScrollImagePanel";
+import { MagneticLink } from "@/components/motion/MagneticLink";
 
 const carrierFeatures = [
   "Expedited & standard delivery options",
@@ -294,6 +295,14 @@ export default function ServicesPage() {
               body="From pallet jacks to hand-stacking, freight is loaded and secured the right way, every time — protecting your cargo from pickup to delivery."
               align="right"
             />
+            <ScrollImagePanel
+              src="/palletjack.png"
+              alt="Warehouse worker moving a shrink-wrapped pallet of freight with a manual pallet jack"
+              eyebrow="Material Handling"
+              title="Pallet Jacks, Ready to Roll"
+              body="Palletized freight moves quickly and safely with the right equipment on hand — no delays, no damage, no guesswork."
+              align="left"
+            />
           </div>
         </div>
       </section>
@@ -338,12 +347,12 @@ export default function ServicesPage() {
           <p className="text-amber-900 font-medium mb-8">
             Contact us for a fast quote — you'll deal directly with our team, not a call center.
           </p>
-          <Link
+          <MagneticLink
             href="/contact"
             className="inline-block bg-white text-brand-black font-bold px-8 py-3 rounded-sm hover:bg-gray-100 active:scale-[0.98] transition-all duration-200 tracking-wide uppercase text-sm"
           >
             Get a Quote
-          </Link>
+          </MagneticLink>
         </Reveal>
       </section>
     </>
