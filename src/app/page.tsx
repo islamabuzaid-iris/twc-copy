@@ -1,10 +1,20 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealGroup, RevealItem } from "@/components/motion/RevealGroup";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
+import { LogoMarquee } from "@/components/motion/LogoMarquee";
+import { MagneticLink } from "@/components/motion/MagneticLink";
+
+// ─── PARTNER LOGOS ────────────────────────────────────────────────────────────
+const partnerLogos = [
+  { src: "/axle-logo.png", alt: "Axle" },
+  { src: "/enruio_logo.jpeg", alt: "Enruio", large: true },
+  { src: "/globaltranz-seeklogo.png", alt: "GlobalTranz" },
+  { src: "/king_of_freight_logo.jpeg", alt: "King of Freight" },
+  { src: "/Screenshot_24-6-2026_161137_drttransportation.com.jpeg", alt: "DRT Transportation" },
+];
 
 // ─── WHY CHOOSE US CARDS ─────────────────────────────────────────────────────
 const reasons = [
@@ -101,12 +111,12 @@ export default function HomePage() {
               </p>
             </RevealItem>
             <RevealItem className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn-primary text-center">
+              <MagneticLink href="/contact" className="btn-primary text-center">
                 Request a Quote
-              </Link>
-              <Link href="/services" className="btn-outline text-center">
+              </MagneticLink>
+              <MagneticLink href="/services" className="btn-outline text-center">
                 Our Services
-              </Link>
+              </MagneticLink>
             </RevealItem>
           </RevealGroup>
         </div>
@@ -134,32 +144,10 @@ export default function HomePage() {
 
       {/* ── TRUSTED BY ────────────────────────────────────────────────────────── */}
       <section className="bg-white border-b border-gray-100 py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-10">
-            Companies We&apos;ve Worked With
-          </p>
-          <RevealGroup className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
-            {[
-              { src: "/axle-logo.png",                   alt: "Axle" },
-              { src: "/enruio_logo.jpeg",                alt: "Enruio",   large: true },
-              { src: "/globaltranz-seeklogo.png",        alt: "GlobalTranz" },
-              { src: "/king_of_freight_logo.jpeg",       alt: "King of Freight" },
-              { src: "/Screenshot_24-6-2026_161137_drttransportation.com.jpeg", alt: "DRT Transportation" },
-            ].map((logo) => (
-              <RevealItem
-                key={logo.alt}
-                className={`relative shrink-0 ${"large" in logo && logo.large ? "h-20 w-52" : "h-12 w-36"}`}
-              >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  fill
-                  className="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-300"
-                />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
+        <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 mb-10">
+          Companies We&apos;ve Worked With
+        </p>
+        <LogoMarquee logos={partnerLogos} />
       </section>
 
       {/* ── INTRO / ABOUT SNIPPET ─────────────────────────────────────────────── */}
@@ -253,9 +241,9 @@ export default function HomePage() {
           <p className="text-gray-400 text-lg mb-10">
             Contact our team today for a fast, competitive quote on your next load.
           </p>
-          <Link href="/contact" className="btn-primary">
+          <MagneticLink href="/contact" className="btn-primary">
             Get a Free Quote
-          </Link>
+          </MagneticLink>
         </Reveal>
       </section>
     </>
